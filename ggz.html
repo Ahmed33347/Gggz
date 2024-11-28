@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل نسخ بوبي بلاي تايم</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1, h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 15px auto;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #ff5722;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button[disabled] {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        button:hover:not([disabled]) {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+        #processor-popup, #ram-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .popup-content {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        .popup-content button {
+            margin-top: 10px;
+            background-color: #007bff;
+        }
+        .popup-content button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="processor-popup">
+        <div class="popup-content">
+            <h2>اختيار المعالج</h2>
+            <p>هل معالج هاتفك Helio G88 أو أعلى؟</p>
+            <button onclick="setProcessor('higher')">أعلى من Helio G88</button>
+            <button onclick="setProcessor('lower')">أقل من Helio G88</button>
+        </div>
+    </div>
+
+    <div id="ram-popup" style="display: none;">
+        <div class="popup-content">
+            <h2>اختيار حجم الرام</h2>
+            <p>هل هاتفك يحتوي على 4 جيجابايت رام أو أقل؟</p>
+            <button onclick="setRam('higher')">أعلى من 4 جيجابايت</button>
+            <button onclick="setRam('lower')">أقل من 4 جيجابايت</button>
+        </div>
+    </div>
+
+    <div class="container" id="main-content" style="display: none;">
+        <h1>تحميل نسخ بوبي بلاي تايم</h1>
+        <button onclick="download('chapter1')">تحميل شابتر 1</button>
+        <button onclick="download('chapter2')">تحميل شابتر 2</button>
+        <button id="chapter3-button" onclick="download('chapter3')">تحميل شابتر 3</button>
+        <button onclick="goToChannel()">الذهاب إلى قناة المطور</button>
+    </div>
+
+    <script>
+        // روابط التحميل
+        const links = {
+            chapter1: "https://androeed.ae/files/poppy-playtime-chapter-1.html",
+            chapter2: "https://ara.happymod.com/poppy-playtime-chapter-2-mod/com.MOBGames.PoppyMobileChap2/original.html",
+            chapter3: "https://apkaward.com/poppy-playtime-chapter-3-mod-free",
+            channel: "https://youtube.com/@ahmedgamer9952?si=SPm6ifOikX7ChK_r"
+        };
+
+        // عناصر واجهة الاستخدام
+        const processorPopup = document.getElementById('processor-popup');
+        const ramPopup = document.getElementById('ram-popup');
+        const mainContent = document.getElementById('main-content');
+        const chapter3Button = document.getElementById('chapter3-button');
+
+        // إعدادات المستخدم
+        let processorLevel = null;
+        let ramLevel = null;
+
+        // تعيين مستوى المعالج
+        function setProcessor(level) {
+            processorLevel = level;
+            if (processorLevel === 'lower') {
+                chapter3Button.disabled = true; // تعطيل شابتر 3
+                alert("شابتر 3 غير متاح للتحميل بسبب مواصفات المعالج.");
+            }
+            processorPopup.style.display = 'none';
+            ramPopup.style.display = 'block';
+        }
+
+        // تعيين مستوى الرام
+        function setRam(level) {
+            ramLevel = level;
+            if (processorLevel === 'higher' && ramLevel === 'higher') {
+                chapter3Button.disabled = false; // شابتر 3 متاح
+            } else {
+                chapter3Button.disabled = true; // تعطيل شابتر 3
+                alert("شابتر 3 غير متاح للتحميل بسبب مواصفات الجهاز.");
+            }
+            ramPopup.style.display = 'none';
+            mainContent.style.display = 'block';
+        }
+
+        // دالة التحميل - فتح الروابط في نافذة جديدة
+        function download(chapter) {
+            const link = links[chapter];
+            if (link) {
+                window.open(link, '_blank'); // فتح الرابط في نافذة جديدة
+            } else {
+                alert("الرابط غير موجود!");
+            }
+        }
+
+        // الذهاب إلى القناة
+        function goToChannel() {
+            window.location.href = links.channel;
+        }
+    </script>
+</body>
+</html>
